@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pedometer/pedometer.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class PedometerScreen extends StatefulWidget {
   const PedometerScreen({super.key});
@@ -23,6 +24,13 @@ class _PedometerScreenState extends State<PedometerScreen> {
     // _steps;
     initPlatformState();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+
+    super.dispose();
   }
 
   void onStepCount(StepCount event) {
@@ -65,20 +73,22 @@ class _PedometerScreenState extends State<PedometerScreen> {
   }
 
   Future<void> initPlatformState() async {
-    _pedestrianStatusStream = Pedometer.pedestrianStatusStream;
+    if (await Permission.activityRecognition.request().isGranted) {
+      _pedestrianStatusStream = Pedometer.pedestrianStatusStream;
 
-    _stepCountStream = Pedometer.stepCountStream;
-    _stepCountStream.listen(onStepCount).onError(onStepCountError);
-    _pedestrianStatusStream
-        .listen(onPedestrianStatusChanged)
-        .onError(onPedestrianStatusError);
+      _stepCountStream = Pedometer.stepCountStream;
+      _stepCountStream.listen(onStepCount).onError(onStepCountError);
+      _pedestrianStatusStream
+          .listen(onPedestrianStatusChanged)
+          .onError(onPedestrianStatusError);
 
-    if (kDebugMode) {
-      print(_steps);
-      print(_status);
+      if (kDebugMode) {
+        print(_steps);
+        print(_status);
+      }
+    } else {
+      print('Tidak dibenarkan');
     }
-    
-
     if (!mounted) return;
   }
 
@@ -125,7 +135,8 @@ class _PedometerScreenState extends State<PedometerScreen> {
                       ? const TextStyle(fontSize: 30)
                       : const TextStyle(fontSize: 20, color: Colors.red),
                 ),
-              )
+              ),
+              // ElevatedButton(onPressed: () {}, child: Text('Start'))
             ],
           ),
         ),
