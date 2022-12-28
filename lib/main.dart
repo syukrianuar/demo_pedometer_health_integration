@@ -1,9 +1,15 @@
 import 'package:demo_pedo_health/screens/pedometer_screen.dart';
+import 'package:demo_pedo_health/screens/second_pedometer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart';
 
-void main() {
+Future<void> main() async {
   runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  final appDocumentDirectory = await getApplicationDocumentsDirectory();
+  Hive.init(appDocumentDirectory.path);
 }
 
 class MyApp extends StatelessWidget {
@@ -51,9 +57,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  
-
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -113,14 +116,28 @@ class _MyHomePageState extends State<MyHomePage> {
           const SizedBox(
             width: 10,
           ),
+          // FloatingActionButton(
+          //   onPressed: () {
+          //     Get.to(() => const PedometerScreen());
+          //   },
+          //   heroTag: 'firstPedometer',
+          //   tooltip: 'firstPedometer',
+          //   child: const Icon(
+          //     Icons.run_circle_outlined,
+          //     size: 40,
+          //   ),
+          // ),
+          // const SizedBox(
+          //   width: 10,
+          // ),
           FloatingActionButton(
             onPressed: () {
-              Get.to(() => const PedometerScreen());
+              Get.to(() => const SecondPedometer());
             },
-            heroTag: 'pedometer',
-            tooltip: 'Pedometer',
+            heroTag: 'secondPedometer',
+            tooltip: 'secondPedometer',
             child: const Icon(
-              Icons.run_circle_outlined,
+              Icons.run_circle_sharp,
               size: 40,
             ),
           ),
