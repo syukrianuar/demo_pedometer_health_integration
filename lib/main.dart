@@ -141,6 +141,34 @@ class _MyHomePageState extends State<MyHomePage> {
               size: 40,
             ),
           ),
+          const SizedBox(
+            width: 10,
+          ),
+          FloatingActionButton(
+            onPressed: () {
+              Get.to(() => const SecondPedometer());
+            },
+            heroTag: 'wany',
+            tooltip: 'wany',
+            child: const Icon(
+              Icons.girl,
+              size: 40,
+            ),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          FloatingActionButton(
+            onPressed: () {
+              Get.to(() => const SecondPedometer());
+            },
+            heroTag: 'aira',
+            tooltip: 'aira',
+            child: const Icon(
+              Icons.woman,
+              size: 40,
+            ),
+          ),
         ],
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );

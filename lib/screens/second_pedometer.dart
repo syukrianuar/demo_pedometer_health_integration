@@ -129,7 +129,7 @@ class _SecondPedometerState extends State<SecondPedometer> {
       _stepCountStream = Pedometer.stepCountStream;
       _subscription = _stepCountStream.listen(onStepCount,
           onDone: _onDone, onError: onStepCountError, cancelOnError: true);
-
+      _subscription;
       // _stepCountStream.listen(onStepCount).onError(onStepCountError);
       _pedestrianStatusStream
           .listen(onPedestrianStatusChanged)
